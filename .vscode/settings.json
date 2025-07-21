@@ -1,9 +1,0 @@
-{
-    "editor.lightbulb.enabled": "off",
-    "editor.codeActionsOnSave": {},
-    "editor.quickSuggestions": {
-        "other": true,
-        "comments": false,
-        "strings": false
-    }
-}
