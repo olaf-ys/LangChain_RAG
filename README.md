@@ -1,0 +1,141 @@
+# 检索增强生成 (RAG) 系统
+
+一个基于 LangChain 和 Streamlit 构建的智能文档问答系统，支持上传 PDF 文档并进行智能问答。
+
+## ✨ 功能特性
+
+- 📄 **PDF文档处理**: 支持上传多个PDF文件并自动解析文本内容
+- 🔍 **智能检索**: 使用FAISS向量数据库进行高效的语义检索
+- 🤖 **AI问答**: 基于OpenAI GPT-4o-mini模型，提供准确的文档问答
+- 💬 **友好界面**: 基于Streamlit构建的直观Web界面
+- 📊 **实时状态**: 显示数据库状态和处理进度
+- 🗑️ **数据管理**: 支持清除数据库和重新处理文档
+
+## 🚀 快速开始
+
+### 环境要求
+
+- Python >= 3.13
+- OpenAI API Key
+
+### 安装依赖
+
+使用 uv 包管理器（推荐）：
+
+```bash
+# 克隆项目
+git clone <your-repo-url>
+cd LangChain
+
+# 安装依赖
+uv sync
+```
+
+### 环境配置
+
+1. 创建 `.env` 文件并配置API密钥：
+
+```env
+OPENAI_API_KEY=your_openai_api_key_here
+OPENAI_BASE_URL=https://api.openai.com/v1  # 或您的自定义API端点
+```
+
+### 运行应用
+
+```bash
+# 使用 uv
+uv run streamlit run main.py
+
+# 或使用 streamlit
+streamlit run main.py
+```
+
+应用将在 `http://localhost:8501` 启动。
+
+## 📖 使用说明
+
+### 步骤1: 上传PDF文档
+1. 在侧边栏点击"📎 上传PDF文件"
+2. 选择一个或多个PDF文件
+3. 点击"🚀 提交并处理"按钮
+
+### 步骤2: 开始问答
+1. 等待文档处理完成（显示✅状态）
+2. 在主页面输入框中输入您的问题
+3. AI将基于文档内容为您提供答案
+
+### 步骤3: 管理数据
+- 可以上传新的PDF文件覆盖原有数据
+- 点击"🗑️ 清除数据库"重新开始
+
+## 🏗️ 项目架构
+
+```
+├── main.py              # 主应用文件
+├── pyproject.toml       # 项目配置和依赖
+├── uv.lock              # 依赖锁定文件
+├── .env                 # 环境变量配置
+├── faiss_db/            # FAISS向量数据库存储目录
+│   ├── index.faiss      # 向量索引文件
+│   └── index.pkl        # 元数据文件
+└── README.md            # 项目说明文档
+```
+
+## 🔧 核心技术
+
+- **LangChain**: 用于构建AI应用的框架
+- **FAISS**: Facebook AI相似性搜索库，用于向量检索
+- **OpenAI Embeddings**: text-embedding-3-large模型用于文本向量化
+- **GPT-4o-mini**: 用于智能问答的语言模型
+- **Streamlit**: 用于构建Web界面
+- **PyPDF2**: 用于PDF文档解析
+
+## 🛠️ 主要组件
+
+### 文档处理模块
+```python
+def pdf_read(pdf_doc)      # PDF文档解析
+def get_chunks(text)       # 文本分块处理
+def vector_store(chunks)   # 向量数据库创建
+```
+
+### 问答系统模块
+```python
+def get_conversational_chain()  # 对话链配置
+def user_input()               # 用户输入处理
+```
+
+### 工具集成
+- **检索工具**: 基于FAISS的文档检索
+- **代理执行器**: LangChain Agent用于工具调用和推理
+
+## ⚙️ 配置选项
+
+### 文本分块参数
+- `chunk_size`: 1000 (每个文本块的大小)
+- `chunk_overlap`: 200 (文本块之间的重叠)
+
+### 模型配置
+- **Embedding模型**: text-embedding-3-large
+- **LLM模型**: gpt-4o-mini
+- **向量数据库**: FAISS
+
+## 📝 许可证
+
+本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情。
+
+## ❓ 常见问题
+
+### Q: 为什么上传PDF后无法提问？
+A: 请确保点击了"🚀 提交并处理"按钮，等待处理完成后再提问。
+
+### Q: 支持哪些文件格式？
+A: 目前只支持PDF格式的文档。
+
+### Q: 如何更换AI模型？
+A: 修改 `main.py` 中的 `init_chat_model` 参数即可。
+
+### Q: 向量数据库存储在哪里？
+A: 数据存储在项目目录下的 `faiss_db` 文件夹中。
+
+**Made with ❤️ using LangChain & Streamlit**
