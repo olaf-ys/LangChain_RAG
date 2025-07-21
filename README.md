@@ -23,10 +23,6 @@
 使用 uv 包管理器（推荐）：
 
 ```bash
-# 克隆项目
-git clone <your-repo-url>
-cd LangChain
-
 # 安装依赖
 uv sync
 ```
