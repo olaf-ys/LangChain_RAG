@@ -16,7 +16,6 @@
 ### python版本
 
 - Python >= 3.13
-- OpenAI API Key
 
 ### 安装依赖
 
@@ -126,7 +125,7 @@ streamlit run main.py
 - **Streamlit**: 用于构建Web界面
 - **PyPDF2**: 用于PDF文档解析
 
-## 🛠️ 主要组件
+## 🛠️ 核心功能模块
 
 ### 文档处理模块
 ```python
