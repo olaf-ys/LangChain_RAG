@@ -8,21 +8,13 @@ from langchain.agents import AgentExecutor, create_tool_calling_agent
 from langchain.chat_models import init_chat_model
 from langchain_openai import OpenAIEmbeddings
 import os
-from dotenv import load_dotenv 
-from openai import OpenAI
+from dotenv import load_dotenv
 
 load_dotenv(override=True)
 
 # 设置api key
 api_key = os.getenv("OPENAI_API_KEY")
 base_url = os.getenv("OPENAI_BASE_URL")
-
-# os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
-
-client = OpenAI(
-    api_key=api_key,
-    base_url=base_url
-)
 
 # 初始化embedding模型
 embeddings = OpenAIEmbeddings(
@@ -52,8 +44,14 @@ def vector_store(text_chunks):
     vector_store.save_local("faiss_db")
 
 def get_conversational_chain(tools, ques):
+
     # 初始化llm
-    llm = init_chat_model("gpt-4o-mini", model_provider="openai", api_key=api_key, base_url=base_url)
+    llm = init_chat_model(
+        model="gpt-4o-mini", 
+        model_provider="openai", 
+        api_key=api_key, 
+        base_url=base_url)
+    
     # 创建提示词模版
     prompt = ChatPromptTemplate.from_messages([
         (
